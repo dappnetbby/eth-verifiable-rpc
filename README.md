@@ -7,6 +7,24 @@ It means you can query any contract on Ethereum mainnet, and it is locally loade
 
 Built for [Dappnet ENS lookups](https://github.com/gliss-co/dappnet-features/issues/9).
 
+## FAQ's.
+
+**Can this run in-browser?**
+
+Yes.
+
+**Is this a light node?**
+
+Nope! Even lighter. I chose the term "verifiable RPC" because it conveys better how this works - it's simply a library. It doesn't store any data.
+
+This client does not "track" the blockchain, so doesn't meet the standard of a long-running process to be called a "node". 
+
+## Roadmap.
+
+If you wanna build something ambitious, here's where you can take this:
+
+ - [ ] Generate ZK proofs of `eth_call` lookups based on this library. This would mean users don't run the EVM, they just verify a proof, in O(1) network lookups instead of O(N). This could be done using [Kakarot](https://github.com/sayajin-labs/kakarot) and proving using [Giza](https://github.com/maxgillett/giza)/[Sandstorm](https://github.com/andrewmilson/sandstorm).
+
 ## Usage.
 
 ```sh
