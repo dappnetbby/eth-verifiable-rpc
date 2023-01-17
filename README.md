@@ -5,6 +5,8 @@ This implements a local EVM which dynamically loads ALL contract/storage from a 
 
 It means you can query any contract on Ethereum mainnet, and it is locally loaded and executed securely. 
 
+See [this specification](https://hackmd.io/wAfo9dm9S0iMkaXWRIsYUw) for a good background on the underlying tech.
+
 Built for [Dappnet ENS lookups](https://github.com/gliss-co/dappnet-features/issues/9).
 
 ## FAQ's.
