@@ -11,6 +11,10 @@ Built for [Dappnet ENS lookups](https://github.com/gliss-co/dappnet-features/iss
 
 ## FAQ's.
 
+**What's the trust model?**
+
+This relies on a provider for the latest Ethereum block. So you can use it to "wrap" Infura with verifiable contract calls, or use it with a consensus layer node (beacon chain client) like Helios.
+
 **Can this run in-browser?**
 
 Yes.
@@ -20,6 +24,10 @@ Yes.
 Nope! Even lighter. I chose the term "verifiable RPC" because it conveys better how this works - it's simply a library. It doesn't store any data.
 
 This client does not "track" the blockchain, so doesn't meet the standard of a long-running process to be called a "node". 
+
+**How does this compare with Helios?**
+
+Helios implements this same tech. Honestly, it wasn't ready when I built it. But it seems like they're nearly there lol. Either way, this is useful code.
 
 ## Roadmap.
 
