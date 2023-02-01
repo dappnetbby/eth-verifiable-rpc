@@ -1,10 +1,12 @@
 {
-  "name": "verifiable-rpc",
-  "version": "1.0.0",
+  "name": "verifiable-eth-rpc",
+  "version": "1.6.9",
   "description": "",
-  "main": "index.js",
+  "main": "build/src/index.js",
   "scripts": {
-    "start": "ts-node src/"
+    "start": "ts-node src/demo.ts",
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +19,12 @@
     "ethereum-cryptography": "^1.1.2",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^5.7.2",
-    "merkle-patricia-tree": "^4.2.4",
-    "solc": "^0.8.17",
+    "merkle-patricia-tree": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.7",
+    "@types/lru-cache": "^7.10.10",
+    "lru-cache": "^7.14.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }

@@ -1,13 +1,42 @@
 eth-verifiable-rpc
 ==================
 
-This implements a local EVM which dynamically loads ALL contract/storage from a remote RPC node, **securely**, using storage proofs and the `eth_getProof` API.
+Want your RPC node to never lie to you? Now you can check, using the power of storage proofs, right from the comfort of `ethers.js`.
+
+This implements a verifiable RPC provider. Contract calls are executed in a local EVM, which dynamically loads ALL contract/storage from a remote RPC node, **securely**, using storage proofs and the `eth_getProof` API.
 
 It means you can query any contract on Ethereum mainnet, and it is locally loaded and executed securely. 
 
 See [this specification](https://hackmd.io/wAfo9dm9S0iMkaXWRIsYUw) for a good background on the underlying tech.
 
 Built for [Dappnet ENS lookups](https://github.com/gliss-co/dappnet-features/issues/9).
+
+## Usage.
+
+```sh
+npm i verifiable-eth-rpc
+```
+
+```js
+import { ethers } from "ethers";
+import { VerifiedProvider } from "verifiable-eth-rpc";
+
+async function run() {
+  const baseProvider = new ethers.providers.InfuraProvider()
+  const verifiedProvider = await VerifiedProvider.create(baseProvider)
+
+  const ens = new ethers.Contract(
+      "0xd3ddccdd3b25a8a7423b5bee360a42146eb4baf3", // ENS Registry
+      [
+          "function contenthash(bytes32 node) external view returns (bytes memory)", 
+      ],
+      verifiedProvider
+  )
+
+  const res = await ens.contenthash("0xe6ae31d630cc7a8279c0f1c7cbe6e7064814c47d1785fa2703d9ae511ee2be0c")
+  console.log(res)
+}
+```
 
 ## FAQ's.
 
@@ -34,12 +63,6 @@ Helios implements this same tech. Honestly, it wasn't ready when I built it. But
 If you wanna build something ambitious, here's where you can take this:
 
  - [ ] Generate ZK proofs of `eth_call` lookups based on this library. This would mean users don't run the EVM, they just verify a proof, in O(1) network lookups instead of O(N). This could be done using [Kakarot](https://github.com/sayajin-labs/kakarot) and proving using [Giza](https://github.com/maxgillett/giza)/[Sandstorm](https://github.com/andrewmilson/sandstorm).
-
-## Usage.
-
-```sh
-npm run start
-```
 
 ## Demo.
 
