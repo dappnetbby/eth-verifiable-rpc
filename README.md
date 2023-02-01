@@ -40,6 +40,22 @@ async function run() {
 }
 ```
 
+## Benchmarks.
+
+For resolving an ENS name, it takes 9s on my slow Aussie internet. Subsequent lookups don't fetch contracts, since immutable code can be cached! It gives a roughly 50% speedup.
+
+Potential idea - prefetch state leaves in a batch by calling `eth_getAccessList`.
+
+```
+base) ➜  eth-verifiable-rpc git:(master) ✗ npx ts-node src/ethers-demo.ts
+#5 lookup: 9.085s
+#4 lookup: 4.870s
+#3 lookup: 3.536s
+#2 lookup: 3.465s
+#1 lookup: 3.335s
+#0 lookup: 3.493s
+```
+
 ## FAQ's.
 
 **What's the trust model?**

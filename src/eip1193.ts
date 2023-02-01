@@ -163,7 +163,12 @@ export class Eip1193Bridge extends EventEmitter implements ExternalProvider {
                 // TODO.
                 const req = ethers.providers.JsonRpcProvider.hexlifyTransaction(params[0]);
                 const [msg, blockTag] = [req, params[1]]
-                console.log(msg, blockTag)
+
+                // get access list
+                // @ts-ignore
+                // const res = await this.provider.send("eth_getAccessList", [msg, blockTag])
+                // console.log(res)
+                // console.log(msg, blockTag)
 
                 const $call = encodeCall(msg.to as string, msg.data as string)
 
