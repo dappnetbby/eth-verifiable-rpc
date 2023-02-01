@@ -1,12 +1,14 @@
 {
   "name": "verifiable-eth-rpc",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "",
   "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
   "scripts": {
     "start": "ts-node src/demo.ts",
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "prepublish": "npm run build"
   },
   "keywords": [],
   "author": "",
