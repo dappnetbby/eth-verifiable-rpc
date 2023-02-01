@@ -11,6 +11,8 @@ See [this specification](https://hackmd.io/wAfo9dm9S0iMkaXWRIsYUw) for a good ba
 
 Built for [Dappnet ENS lookups](https://github.com/gliss-co/dappnet-features/issues/9).
 
+❗️ This library is art, and is only tested for ENS lookups right now. ❗️
+
 ## Usage.
 
 ```sh
