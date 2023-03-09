@@ -124,7 +124,7 @@ export class VerifiableEthExecEnv extends EEI implements HookedStateAccess {
      * corresponding to the provided address at the provided key.
      * If this does not exist an empty `Buffer` is returned.
      */
-    async getContractStorage(address: Address, key: Buffer): Promise<Buffer> {
+    async getContractStorage(address: Address, key: Buffer): Promise<Buffer> {  
         // Check 1st load.
         const id = `${address.toString()}-${key.toString('hex')}`
         if (this.warm3[id]) {
@@ -133,10 +133,16 @@ export class VerifiableEthExecEnv extends EEI implements HookedStateAccess {
         this.warm3[id] = true
 
         // Lookup from RPC.
-        const res = await this._getProof({ address: address.toString(), storageKeys: ['0x' + key.toString('hex')] })
-        const value = Buffer.from(res.slice(2), 'hex')
+        const proof = await this._getProof({ 
+            address: address.toString(), 
+            storageKeys: ['0x' + key.toString('hex')] 
+        })
 
-        // const decoded = Buffer.from(RLP.decode(Uint8Array.from(value ?? [])) as Uint8Array)
+        if (proof.storageProof.length == 0) {
+            return Buffer.from([])
+        }
+
+        const value = Buffer.from(proof.storageProof[0].value.slice(2), 'hex')        
         this._stateManager.putContractStorage(address, key, value)
         return value
     }
@@ -212,8 +218,10 @@ export class VerifiableEthExecEnv extends EEI implements HookedStateAccess {
      * @param original If true, return the original storage value (default: false)
      */
     async storageLoad(address: Address, key: Buffer, original = false): Promise<Buffer> {
-        // TODO: 1st load. Though this probably doesn't matter.
-        const proof = await this._getProof({ address: address.toString(), storageKeys: ['0x' + key.toString('hex')] })
+        const proof = await this._getProof({ 
+            address: address.toString(), 
+            storageKeys: ['0x' + key.toString('hex')] 
+        })
         const value = proof.storageProof[0].value
         return Buffer.from(value.slice(2), 'hex')
         // if (original) {
